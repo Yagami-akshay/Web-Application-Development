@@ -7,12 +7,23 @@ import { Footer } from './components/Footer';
 import './App.css';
 
 export default function App() {
+  // =========================================================================
+  // 💡 REACT STATE (useState Hook):
+  // - matches: Holds the array of match objects fetched from Supabase
+  // - totalBookings: Counter displayed in Navbar badge
+  // - loading: Controls the "Loading live matches..." spinner text
+  // 💡 If teacher asks: "Add a button to decrement bookings":
+  //    const handleDecrement = () => setTotalBookings(prev => Math.max(0, prev - 1));
+  // =========================================================================
   const [matches, setMatches] = useState([]);
   const [totalBookings, setTotalBookings] = useState(0);
   const [loading, setLoading] = useState(true);
   const [statusMessage, setStatusMessage] = useState('');
 
-  // Step 3: Fetch matches from Supabase
+  // =========================================================================
+  // 💡 SUPABASE DATABASE FETCH (Async/Await):
+  // Fetches all rows from the PostgreSQL 'matches' table, sorted by ID.
+  // =========================================================================
   const fetchMatches = async () => {
     try {
       const { data, error } = await supabase
@@ -48,7 +59,12 @@ export default function App() {
     }
   };
 
-  // Step 3 & Step 5: Initial fetch and Realtime subscription
+  // =========================================================================
+  // 💡 REACT LIFECYCLE (useEffect Hook):
+  // - The empty dependency array '[]' ensures this runs ONLY ONCE on mount!
+  // - Why? Prevents infinite fetch loops.
+  // - Inside: Calls fetchMatches() and subscribes to Supabase Realtime changes.
+  // =========================================================================
   useEffect(() => {
     fetchMatches();
     fetchBookingCount();
@@ -170,6 +186,13 @@ export default function App() {
             </div>
           ) : (
             <div className="matches-grid">
+              {/* =========================================================
+                  💡 DYNAMIC LIST RENDERING & PROPS PASSING:
+                  - .map() iterates through each match object.
+                  - 'key={match.id}' gives React a unique identifier for diffing.
+                  - 'match={match}' passes the data object down as a prop.
+                  - 'onSelectMatch={...}' passes the callback function as a prop.
+                  ========================================================= */}
               {matches.map((match) => (
                 <MatchCard
                   key={match.id}

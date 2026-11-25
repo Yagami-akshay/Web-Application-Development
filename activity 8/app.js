@@ -91,6 +91,12 @@ const FIXTURE_DATA = {
 /* ==========================================================================
    STEP 4: HAMBURGER MENU USING JS CLASS TOGGLE
    Toggles mobile drawer navigation on small screen sizes.
+   ==========================================================================
+   💡 TEACHER MODIFICATION GUIDE - HAMBURGER MENU:
+   - If teacher asks: "How does the mobile menu open/close?"
+     -> Answer: It toggles the CSS class 'open' on the '#nav-links' element.
+   - If teacher asks: "Show me where the click event is attached":
+     -> Line below: hamburgerBtn.addEventListener("click", ...);
    ========================================================================== */
 function initHamburgerMenu() {
   const hamburgerBtn = document.getElementById("hamburger-btn");

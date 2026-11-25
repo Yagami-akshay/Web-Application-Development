@@ -103,7 +103,13 @@ button, input, select, textarea {
 }
 
 .navbar {
-  /* Core Flexbox layout for navbar */
+  /* =========================================================================
+     💡 TEACHER MODIFICATION GUIDE - FLEXBOX NAVBAR:
+     - 'display: flex' enables 1-dimensional Flexbox layout.
+     - 'justify-content: space-between' pushes brand logo to LEFT, links to RIGHT.
+       (If teacher asks to center everything: change to 'justify-content: center').
+     - 'align-items: center' vertically aligns items in the center.
+     ========================================================================= */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -580,7 +586,15 @@ button, input, select, textarea {
 /* --------------------------------------------------------------------------
    STEP 2: CSS GRID TO DISPLAY MATCH SCHEDULE AS CARDS
    Desktop default: Multi-column CSS Grid.
-   -------------------------------------------------------------------------- */
+   ==========================================================================
+   💡 TEACHER MODIFICATION GUIDE - CSS GRID COLUMNS:
+   - If teacher asks: "Change desktop match cards from 3 columns to 4 columns":
+     Change 'repeat(3, 1fr)' to 'repeat(4, 1fr)' below.
+   - If teacher asks: "Change to 2 columns on desktop":
+     Change 'repeat(3, 1fr)' to 'repeat(2, 1fr)' below.
+   - If teacher asks: "Change grid gap between cards":
+     Change 'gap: 24px' to 'gap: 16px' or 'gap: 32px'.
+   ========================================================================== */
 .matches-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1567,7 +1581,16 @@ button, input, select, textarea {
 /* --------------------------------------------------------------------------
    Breakpoint 2: Standard Tablets & Mobile Viewports (<= 768px)
    HAMBURGER MENU ACTIVATION & SINGLE-COLUMN REFLOW
-   -------------------------------------------------------------------------- */
+   ==========================================================================
+   💡 TEACHER MODIFICATION GUIDE - MEDIA QUERIES & BREAKPOINTS:
+   - If teacher asks: "Change mobile breakpoint from 768px to 900px (or 600px)":
+     Change 'max-width: 768px' below to 'max-width: 900px' (or 'max-width: 600px').
+   - How it works:
+     1. Below 768px, desktop navbar links (.nav-links) become 'display: none'.
+     2. Hamburger icon becomes 'display: flex'.
+     3. When user clicks hamburger, JavaScript adds the class '.open', which turns
+        .nav-links into 'display: flex' as a dropdown drawer!
+   ========================================================================== */
 @media screen and (max-width: 768px) {
   
   /* 1. Hamburger Menu Navigation Drawer */

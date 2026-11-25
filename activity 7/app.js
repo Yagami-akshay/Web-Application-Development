@@ -72,6 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ==========================================================================
    MATCH & PRICING DATABASE
+   ==========================================================================
+   💡 TEACHER MODIFICATION GUIDE - MATCH DATA & PRICES:
+   - If teacher asks: "Change ticket price for a match" -> Edit the numbers below.
+   - If teacher asks: "Add a new stand category (e.g. Corporate: 15000)" -> 
+     Add 'Corporate: 15000' inside the prices object of each match.
+   - If teacher asks: "Add a new match" -> Add "5": { id: "5", name: "...", ... }
    ========================================================================== */
 const MATCH_DATA = {
   "1": {
@@ -168,12 +174,18 @@ function initLiveBookingSummary() {
    * @param {boolean} triggerToast - Whether to display a toast notification.
    */
   function updateBookingSummary(event = null, triggerToast = true) {
-    // Read current form selections
+    // =========================================================================
+    // 💡 BLOCK 1: READ USER SELECTIONS FROM FORM INPUTS
+    // =========================================================================
     const selectedMatchId = matchSelect.value;
     const selectedStand = standSelect.value;
     let quantity = parseInt(quantityInput.value, 10);
 
-    // Sanitize ticket quantity between 1 and 6
+    // =========================================================================
+    // 💡 TEACHER MODIFICATION GUIDE - TICKET LIMIT:
+    // If teacher asks: "Change maximum allowed tickets from 6 to 4 (or 2)":
+    // Change '6' below to '4' (and also change max="4" in activity 7.html).
+    // =========================================================================
     if (isNaN(quantity) || quantity < 1) {
       quantity = 1;
     } else if (quantity > 6) {
@@ -184,7 +196,11 @@ function initLiveBookingSummary() {
 
     const matchData = MATCH_DATA[selectedMatchId];
 
-    // Read optional add-ons
+    // =========================================================================
+    // 💡 BLOCK 2: READ OPTIONAL ADD-ONS (CHECKBOXES)
+    // How it works: Loops through checkboxes with name="extras".
+    // Reads data-price="500" attribute from HTML and adds it up.
+    // =========================================================================
     let addonsTotalPerTicket = 0;
     const selectedAddonsList = [];
     addonCheckboxes.forEach((chk) => {
@@ -195,13 +211,24 @@ function initLiveBookingSummary() {
       }
     });
 
-    // Step 4: Calculate total price and display selected details in Summary Card
+    // =========================================================================
+    // 💡 BLOCK 3: LIVE PRICE CALCULATION
+    // =========================================================================
+    // 💡 TEACHER MODIFICATION GUIDE - FORMULAS / TAX / DISCOUNT:
+    // 1. ADD GST / TAX (e.g., 18% GST):
+    //    const tax = totalPrice * 0.18;
+    //    totalPrice = totalPrice + tax;
+    // 2. ADD A PROMO / DISCOUNT CODE (e.g., 10% discount):
+    //    const promo = document.getElementById("promo")?.value.trim().toUpperCase();
+    //    if (promo === "IPL10") totalPrice = totalPrice * 0.90;
+    // =========================================================================
     let unitPrice = 0;
     let totalPrice = 0;
     let isFullySelected = false;
 
     if (matchData && selectedStand && matchData.prices[selectedStand]) {
       unitPrice = matchData.prices[selectedStand];
+      // Formula: (Stand Price + Addons) * Quantity
       totalPrice = (unitPrice + addonsTotalPerTicket) * quantity;
       isFullySelected = true;
     }
@@ -287,7 +314,12 @@ function initLiveBookingSummary() {
     }
   }
 
-  // Step 3: Add change event listeners that read the selected match, stand, and quantity
+  // =========================================================================
+  // 💡 BLOCK 4: ATTACH EVENT LISTENERS FOR REAL-TIME INTERACTION
+  // - Dropdowns (#match, #stand) listen to 'change' (fires when user picks an option)
+  // - Quantity (#tickets) listens to BOTH 'input' (instant keystroke/stepper) and 'change'
+  // - Add-on Checkboxes listen to 'change' (fires when box is checked/unchecked)
+  // =========================================================================
   matchSelect.addEventListener("change", (e) => updateBookingSummary(e, true));
   standSelect.addEventListener("change", (e) => updateBookingSummary(e, true));
   quantityInput.addEventListener("change", (e) => updateBookingSummary(e, true));
@@ -584,7 +616,14 @@ function initBookingFormSubmission() {
       5000
     );
 
-    // Dynamic row insertion into My Bookings table
+    // =========================================================================
+    // 💡 BLOCK 5: DYNAMIC ROW INSERTION INTO "MY BOOKINGS" TABLE
+    // Creates a new <tr> element and inserts booking data into the table.
+    // 💡 TEACHER MODIFICATION GUIDE - DELETE / CANCEL BUTTON:
+    // If teacher asks: "Add a button to cancel/delete a booking from the table":
+    // 1. Add <td><button class="btn-cancel-row">Cancel</button></td> inside innerHTML
+    // 2. Add: newRow.querySelector(".btn-cancel-row").addEventListener("click", () => newRow.remove());
+    // =========================================================================
     if (bookingsBody) {
       const newRow = document.createElement("tr");
       newRow.innerHTML = `

@@ -182,7 +182,12 @@
             <span class="field-error" id="phone-error"></span>
           </div>
 
+          <!-- ============================================================= -->
+          <!-- 💡 TEACHER MODIFICATION GUIDE: FORM CONTROLS                 -->
+          <!-- ============================================================= -->
+
           <!-- Match Select Dropdown -->
+          <!-- 💡 To add a new match: add <option value="5">Match 5: GT vs RR</option> -->
           <div class="form-group">
             <label for="match">Select Match *</label>
             <select id="match" name="match" required>
@@ -196,6 +201,7 @@
           </div>
 
           <!-- Stand Category Select Dropdown -->
+          <!-- 💡 To add a new stand: add <option value="Corporate">Corporate Box</option> -->
           <div class="form-group">
             <label for="stand">Stand Category *</label>
             <select id="stand" name="stand" required>
@@ -208,6 +214,7 @@
           </div>
 
           <!-- Number of Tickets (Quantity Input) -->
+          <!-- 💡 To change ticket limits: edit min="1" max="4" (and update app.js line 185) -->
           <div class="form-group">
             <label for="tickets">Ticket Quantity (1 to 6) *</label>
             <input type="number" id="tickets" name="tickets" required min="1" max="6" value="1">
@@ -226,6 +233,8 @@
           </fieldset>
 
           <!-- Extras / Add-ons -->
+          <!-- 💡 To add a new add-on: add <label><input type="checkbox" name="extras" value="Cap" data-price="200"> Fan Cap (+₹200)</label> -->
+          <!-- Notice: The JS automatically calculates any checkbox with name="extras" and data-price="X"! -->
           <fieldset>
             <legend>Optional Add-ons</legend>
             <label><input type="checkbox" name="extras" value="Food Combo" data-price="350"> Food Combo (+₹350/ticket)</label>

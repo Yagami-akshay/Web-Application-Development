@@ -14,6 +14,14 @@
  * ============================================================================
  */
 
+// ============================================================================
+// 💡 TEACHER MODIFICATION GUIDE: JAVASCRIPT BASICS & USER INTERACTION (ACTIVITY 5)
+// - Line below waits for HTML to load before running JS (prevents null errors).
+// - To test or demonstrate in Viva:
+//   1. Smooth scroll: Click "Book" on any match -> Smoothly scrolls to form.
+//   2. Form validation: Try submitting empty form -> Shows red error messages.
+//   3. Toast message: Reusable notification box shown at top right.
+// ============================================================================
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Activity 5: JavaScript loaded and DOM ready.");
 
@@ -147,6 +155,13 @@ function showToast(message, type = "info", duration = 3500) {
  *   4. Displays a confirmation toast notification.
  */
 function initSmoothScrollBooking() {
+  // =========================================================================
+  // 💡 TEACHER MODIFICATION GUIDE - SMOOTH SCROLL & DATA PRE-SELECTION:
+  // - 'querySelectorAll(".book-btn")': Finds all "Book" buttons in the table.
+  // - 'e.preventDefault()': Stops normal link jump.
+  // - 'scrollIntoView({ behavior: "smooth" })': Smoothly animates scrolling down.
+  // - 'matchSelect.value = matchId': Automatically selects that match in dropdown!
+  // =========================================================================
   const bookButtons = document.querySelectorAll(".book-btn");
   const bookingSection = document.getElementById("booking");
   const matchSelect = document.getElementById("match");
@@ -246,6 +261,12 @@ function initBookingForm() {
   const bookingsBody = document.getElementById("bookings-body");
 
   form.addEventListener("submit", (e) => {
+    // =========================================================================
+    // 💡 TEACHER MODIFICATION GUIDE - FORM SUBMISSION:
+    // - 'e.preventDefault()': STOPS page refresh so JavaScript processes the form.
+    // - If teacher asks: "Where is regex phone validation done?" -> Look at line 305.
+    // - If teacher asks: "Where is new row inserted into table?" -> Look at line 360.
+    // =========================================================================
     e.preventDefault();
 
     // Input elements
